@@ -1,0 +1,40 @@
+Mission API
+
+mission.log(path)
+    Log the mission data, csv formatted, in the given file. Makes it really usefull to debug/plot the state and controller behavior.
+
+mission.run(callback)
+    Execute the mission. The callback has the form function(err,result) and will be triggered in case of error or at the end of the mission.
+
+mission.takeoff()
+    Add a takeoff step to the mission.
+
+mission.land()
+    Add a land step to the mission.
+
+mission.forward/backward/left/right/up/down(distance)
+    Add a movement step to the mission. The drone will move in the given direction by the distance (in meters) before proceeding to next step. The drone will also attempt to maintain all other degrees of freedom.
+
+mission.altitude(height)
+    Add a altitude step to the mission. Will climb to the given height before proceeding to next step.
+
+mission.cw/ccw(angle)
+    Add a rotation step to the mission. Will turn by the given angle (in Deg) before proceeding to the next step.
+
+mission.hover(delay)
+    Add a hover step to the mission. Will hover in place for the given delay (in ms) before proceeding to next step.
+
+mission.wait(delay)
+    Add a wait step to the mission. Will wait for the given delay (in ms) before proceeding to next step.
+
+mission.go(position)
+    Add a movement step to the mission. Will go the given position before proceeding to next step. The position is a Controller goal such as {x: 0, y: 0, z: 1, yaw: 90}.
+
+mission.task(function(callback){..})
+    Add a task step to the mission. Will execute the provided function before proceeding to the next step. A callback argument is passed to the function, it should be called when the task is done.
+
+mission.taskSync(function)
+    Add a task step to the mission. Will execute the provided function before proceeding to the next step.
+
+mission.zero()
+    Add a zeroing step to the mission. This will set the current position/orientation as the base state of the kalman filter (i.e. {x: 0, y:0, yaw:0}). If you are not using a tag as your base position, it is a good idea to zero() after takeoff.
