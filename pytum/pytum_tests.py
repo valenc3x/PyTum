@@ -1,10 +1,7 @@
 __author__ = 'avathar'
 
-from pytum import *
+import pytum 
 
-p = Pytum('script.js')
-
-p.parse_file()
-p.make_script()
+pytum.parse_file('script.js')
 
 
