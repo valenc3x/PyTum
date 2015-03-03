@@ -23,12 +23,13 @@ COMMANDS = {
 }
 
 
-class Pytonomy:
+class Pytum:
     def __init__(self, filename):
         self.file = filename
-        self.instructions = dict()
+        self.instructions = []
 
     def parse_file(self):
+        print "parse_file"
         input = open(self.file)
         content = input.readlines()
         for line in content:
@@ -38,19 +39,19 @@ class Pytonomy:
             line = line.replace('\n', '').strip()
             for command in COMMANDS.keys():
                 if command in line:
-                    self.instructions[command] = (command,COMMANDS[command])
-                    print line
+                    print COMMANDS[command]
+                    self.instructions.append(COMMANDS[command])
         input.close()
 
     def make_script(self):
         name = self.file.partition('.')[0]
-        filename = name + '.ar'
-        output = open(filename, 'w+')
+        filename = name + '.pt'
+        output = open(filename, 'w')
         for command in self.instructions:
             output.write(command)
             output.write('\n')
-        try:
-            os.chmod(filename, S_IXUSR)
-        except IOError:
-            print "Error making runnable file"
+        # try:
+        #     os.chmod(filename, S_IXUSR)
+        # except IOError:
+        #     print "Error making runnable file"
         output.close()
